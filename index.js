@@ -40,6 +40,8 @@ app.get('/test', (req, res) => {
 // Save API
 app.post('/save', async (req, res) => {
     const { name, license_plate_number, phone_number, email, department } = req.body;
+    console.log(name, license_plate_number, phone_number, email, department);
+    console.log(req.body);
     
     if (!name || !license_plate_number || !phone_number || !email || !department) {
         return res.status(400).json({ error: 'All fields are required' });

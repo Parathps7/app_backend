@@ -63,6 +63,31 @@ app.post('/save', async (req, res) => {
     }
 });
 
+app.get('/save2', async (req, res) => {
+    const { name, license_plate_number, phone_number, email, department } = req.query;
+    console.log(name, license_plate_number, phone_number, email, department);
+    console.log(req.query);
+
+    if (!name || !license_plate_number || !phone_number || !email || !department) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    const newData = new Data({
+        name,
+        license_plate_number,
+        phone_number,
+        email,
+        department
+    });
+
+    try {
+        const savedData = await newData.save();
+        res.status(201).json(savedData);
+    } catch (err) {
+        res.status(500).json({ error: 'Error saving data' });
+    }
+});
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
